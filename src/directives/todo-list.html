@@ -1,0 +1,13 @@
+<ul class="todo-list">
+    <template ngFor #todo [ngForOf]="todos | todosFilter:filter">
+        <li [todo]="todo"></li>
+    </template>
+</ul>
+
+<!-- can be:
+…ngFor var-todo bind-ngForOf="…
+-->
+
+<!-- TODO: Bug: example below does not work:
+<ul><li *ngFor="#todo of todos | todosFilter:filter" [todo]="todo"></li></ul>
+-->

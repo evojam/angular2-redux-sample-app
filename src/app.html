@@ -1,0 +1,28 @@
+<header>
+    <h1>TODO LIST<br/><small>ANGULAR2+REDUX</small></h1>
+</header>
+<main>
+    <add-item itemType="TodoList"></add-item>
+    <ul class="todo-lists-list">
+        <li *ngFor="#todoList of lists" [class.active]="todoList.id === currentId" class="todo-lists-list-item">
+            <header [todo-list-header]="todoList"></header>
+            <template [ngIf]="todoList.id !== currentId">
+                <ul class="todo-list">
+                    <li *ngFor="#todo of todoList.todos" class="todo-preview" [class.done]="todo.completed">
+                        {{ todo.text }}
+                    </li>
+                </ul>
+            </template>
+            <template [ngIf]="todoList.id === currentId">
+                <filters>
+                    Show:
+                    <filter-link filter="All">All</filter-link>
+                    <filter-link filter="Active">Active</filter-link>
+                    <filter-link filter="Completed">Completed</filter-link>
+                </filters>
+                <add-item itemType="Todo"></add-item>
+                <todo-list [todos]="todoList.todos" [filter]="filter"></todo-list>
+            </template>
+        </li>
+    </ul>
+</main>
