@@ -3,6 +3,7 @@ import { Store } from 'redux';
 
 import { TodoActions } from '../../todo-lib/redux/core';
 import { AddItemType } from '../../todo-lib/redux/actions';
+import { Some, IO } from 'monet';
 
 @Component({
     selector: 'add-item',
@@ -26,10 +27,10 @@ export class AddItem {
     }
 
     private addItem(input: HTMLInputElement): void {
-        if (input.value) {
+        Some(input).filter(input => Boolean(input.value)).cata(() => new IO(() => {}), input => new IO(() => {
             this.todoActions.addItem(AddItemType[this._itemType], input.value);
             input.value = ''; // FIXME: SideEffect - maybe move to store ?
-        }
+        })).run();
     }
 
 }
