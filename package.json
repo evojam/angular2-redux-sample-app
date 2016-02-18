@@ -1,8 +1,8 @@
 {
-  "name": "ng2-playground",
-  "version": "0.1.1",
+  "name": "angular2-playground",
+  "version": "0.1.0",
   "description": "Angular2 TODO LIST based on https://medium.com/google-developer-experts/angular-2-introduction-to-redux-1cf18af27e6e#.558q99qsm",
-  "author": "JS",
+  "author": "Jakub Strojewski <kuba@evojam.com>",
   "license": "WTFPL",
   "dependencies": {
     "angular2": "2.0.0-beta.6",
@@ -12,8 +12,8 @@
     "redux": "3.3.1",
     "reflect-metadata": "0.1.3",
     "rxjs": "5.0.0-beta.0",
-    "systemjs": "0.19.21",
-    "zone.js": "0.5.14"
+    "systemjs": "0.19.22",
+    "zone.js": "0.5.15"
   },
   "devDependencies": {
     "gulp": "3.9.1",
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ulfryk/ng2-playground"
+    "url": "https://github.com/evojam/angular2-redux-sample-app"
   },
   "engines": {
     "node": ">=4",
