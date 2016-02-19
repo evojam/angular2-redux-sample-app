@@ -4,6 +4,11 @@ import { IO, Maybe, Some } from 'monet';
 
 import { TodoActions } from '../../todo-lib/redux/core';
 import { AddItemType } from '../../todo-lib/redux/actions';
+import {HostBinding} from "angular2/core";
+
+function ioNoop() {
+    return IO(() => {});
+}
 
 @Component({
     selector: 'add-item',
@@ -15,11 +20,16 @@ export class AddItem implements AfterViewInit {
         public todoActions: TodoActions
     ) {}
 
-    private _itemType: string;
-
     @Input()
-    private set itemType(type: string) {
-        this._itemType = type;
+    private itemType: string;
+
+    private get itemTypeText(): string {
+        return this.itemType.replace(/([a-z])([A-Z])/g, '$1 $2');
+    }
+
+    @HostBinding('class')
+    private get itemTypeClass(): string {
+        return `add-item add-${this.itemTypeText.toLowerCase().replace(' ', '-')}`;
     }
 
     @ViewChild('item')
@@ -30,21 +40,16 @@ export class AddItem implements AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        this.itemControl.filter(() => this._itemType === 'Todo').map(input => IO(() => {
+        this.itemControl.filter(() => this.itemType === 'Todo').map(input => IO(() => {
             input.focus();
-        })).orJust(IO(() => {})).run();
-    }
-
-    private get itemType(): string {
-        return this._itemType.replace(/([a-z])([A-Z])/g, '$1 $2');
+        })).orJust(ioNoop()).run();
     }
 
     private addItem(input: HTMLInputElement): void {
         Some(input).filter(input => Boolean(input.value)).map(input => IO(() => {
-            this.todoActions.addItem(AddItemType[this._itemType], input.value);
+            this.todoActions.addItem(AddItemType[this.itemType], input.value);
             input.value = ''; // FIXME: SideEffect - maybe move to store ?
-        })).orJust(IO(() => {
-        })).run();
+        })).orJust(ioNoop()).run();
     }
 
 }

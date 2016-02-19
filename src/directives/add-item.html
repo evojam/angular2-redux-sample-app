@@ -1,5 +1,5 @@
 <input #item type="text" (keyup.enter)="addItem(item)"/>
-<button (click)="addItem(item)" class="ion"><span>Add {{ itemType }}</span></button>
+<button (click)="addItem(item)" class="ion"><span>Add {{ itemTypeText }}</span></button>
 
 <!-- alternative version without sugar -- >
 <input var-todo type="text" on-keyup.enter="addTodo(todo)"/>
