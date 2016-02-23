@@ -3,28 +3,5 @@
 </header>
 <main>
     <add-item itemType="TodoList"></add-item>
-    <ul class="todo-lists-list">
-        <li *ngFor="#todoList of lists" [class.active]="todoList.id === currentId" class="todo-lists-list-item">
-            <header [todo-list-header]="todoList"></header>
-            <template [ngIf]="todoList.id !== currentId">
-                <ul class="todo-list">
-                    <li *ngFor="#todo of todoList.todos" class="todo-preview" [class.done]="todo.completed">
-                        {{ todo.text }}
-                    </li>
-                </ul>
-            </template>
-            <template [ngIf]="todoList.id === currentId">
-                <editable-list>
-                    <filters>
-                        Show:
-                        <filter-link filter="All"></filter-link>
-                        <filter-link filter="Active"></filter-link>
-                        <filter-link filter="Completed"></filter-link>
-                    </filters>
-                    <add-item itemType="Todo"></add-item>
-                    <todo-list [todos]="todoList.todos" [filter]="filter"></todo-list>
-                </editable-list>
-            </template>
-        </li>
-    </ul>
+    <ul [list-of-lists]="lists" [currentId]="currentId" class="todo-lists-list"></ul>
 </main>

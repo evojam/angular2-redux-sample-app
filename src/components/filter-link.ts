@@ -5,7 +5,7 @@ import { FilterType } from '../../todo-lib/filters/todos-filter';
 
 @Component({
     selector: 'filter-link',
-    templateUrl: '/src/directives/filter-link.html'
+    templateUrl: '/src/components/filter-link.html'
 })
 export class FilterLink {
 

@@ -1,24 +1,28 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from 'angular2/core';
-import { Store } from 'redux';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, ViewChild } from 'angular2/core';
 import { IO, Maybe, Some } from 'monet';
 
 import { TodoActions } from '../../todo-lib/redux/core';
 import { AddItemType } from '../../todo-lib/redux/actions';
-import {HostBinding} from "angular2/core";
+
+import { InpAlerter } from "../directives/inp-alerter";
 
 function ioNoop() {
     return IO(() => {});
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    directives: [InpAlerter],
     selector: 'add-item',
-    templateUrl: '/src/directives/add-item.html'
+    templateUrl: '/src/components/add-item.html'
 })
 export class AddItem implements AfterViewInit {
 
     constructor(
         public todoActions: TodoActions
-    ) {}
+    ) {
+        console.log('new AddItem(todoActions)');
+    }
 
     @Input()
     private itemType: string;
@@ -42,7 +46,7 @@ export class AddItem implements AfterViewInit {
     public ngAfterViewInit(): void {
         this.itemControl.filter(() => this.itemType === 'Todo').map(input => IO(() => {
             input.focus();
-        })).orJust(ioNoop()).run();
+        })).orJust(ioNoop()); //.run();
     }
 
     private addItem(input: HTMLInputElement): void {

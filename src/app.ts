@@ -1,13 +1,13 @@
 import { Component, Inject, OnDestroy, OnInit } from 'angular2/core';
 import { Store, IUnsubscribe } from 'redux';
 
-import { AddItem, FilterLink, TodoList, TodoListHeader } from './directives/index';
+import { AddItem, ListOfLists } from './components';
 import { syncStorage, IAppState } from '../todo-lib/redux/core';
 import { ITodoList } from '../todo-lib/dto';
 import { FilterType } from '../todo-lib/filters';
 
 @Component({
-    directives: [AddItem, FilterLink, TodoList, TodoListHeader],
+    directives: [AddItem, ListOfLists],
     selector: 'my-app',
     templateUrl: '/src/app.html'
 })
