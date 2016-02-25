@@ -46,7 +46,7 @@ export class AddItem implements AfterViewInit {
     public ngAfterViewInit(): void {
         this.itemControl.filter(() => this.itemType === 'Todo').map(input => IO(() => {
             input.focus();
-        })).orJust(ioNoop()); //.run();
+        })).orJust(ioNoop()).run();
     }
 
     private addItem(input: HTMLInputElement): void {

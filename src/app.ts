@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from 'angular2/core';
-import { Store, IUnsubscribe } from 'redux';
+import { Store, Unsubscribe } from 'redux';
 
 import { AddItem, ListOfLists } from './components';
 import { syncStorage, IAppState } from '../todo-lib/redux/core';
@@ -29,7 +29,7 @@ export class App implements OnInit, OnDestroy {
         return this.appStore.getState().currentListId;
     }
 
-    private unsubscribe: IUnsubscribe;
+    private unsubscribe: Unsubscribe;
 
     public ngOnInit(): void {
         this.unsubscribe = this.appStore.subscribe(() => syncStorage(this.appStore.getState()));
