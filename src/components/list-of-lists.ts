@@ -19,5 +19,8 @@ interface IListOfListsProps {
 export class ListOfLists implements IListOfListsProps {
     @Input('list-of-lists') lists: ITodoList[];
     @Input() currentId: string;
+    private isCurrent(list: ITodoList): boolean {
+        return this.currentId === list.id;
+    }
     private _byId = (list: ITodoList) => list.id;
 }

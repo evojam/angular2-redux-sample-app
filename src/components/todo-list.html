@@ -1,13 +1,11 @@
-<ul class="todo-list">
-    <template ngFor #todo [ngForOf]="todos | todosFilter:filter">
-        <li [todo]="todo"></li>
-    </template>
-</ul>
+<template ngFor #todo [ngForOf]="todoList | todosFilter:filter">
+    <li [todo]="todo"></li>
+</template>
 
 <!-- can be:
 …ngFor var-todo bind-ngForOf="…
 -->
 
 <!-- TODO: Bug: example below does not work:
-<ul><li *ngFor="#todo of todos | todosFilter:filter" [todo]="todo"></li></ul>
+<li *ngFor="#todo of todos | todosFilter:filter" [todo]="todo"></li>
 -->
