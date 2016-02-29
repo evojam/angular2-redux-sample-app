@@ -9,6 +9,6 @@
             {{ todo.text }}
         </li>
     </ul>
-    <editable-list *ngIf="isCurrent(todoList)" [todoList]="todoList">
+    <editable-list *ngIf="isCurrent(todoList)" [todoList]="todoList" [filter]="filter">
     </editable-list>
 </li>
