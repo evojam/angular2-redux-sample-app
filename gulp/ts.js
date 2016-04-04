@@ -3,12 +3,10 @@
 var gulp = require('gulp');
 var tsc = require('typescript');
 var typescript = require('gulp-typescript');
-//var runSequence = require('run-sequence');
 
 gulp.task('ts-build-app', () => gulp.src([
     'typings/tsd.d.ts',
     'own_typings/**/*.d.ts',
-    'todo-lib/own_typings/**/*.d.ts',
     'src/**/*.ts',
     'node_modules/reflect-metadata/reflect-metadata.d.ts'
 ]).pipe(typescript({
@@ -26,7 +24,6 @@ gulp.task('ts-build-app', () => gulp.src([
 gulp.task('ts-build-lib', () => gulp.src([
     'typings/tsd.d.ts',
     'own_typings/**/*.d.ts',
-    'todo-lib/**/*.ts',
     'node_modules/reflect-metadata/reflect-metadata.d.ts'
 ]).pipe(typescript({
     target: 'ES5',
@@ -39,9 +36,5 @@ gulp.task('ts-build-lib', () => gulp.src([
     noImplicitAny: false,
     typescript: tsc
 })).js.pipe(gulp.dest('dist/todo-lib/')));
-
-//gulp.task('ts', (done) => {
-//    runSequence('ts-lint', 'ts-build', done);
-//});
 
 gulp.task('ts-build', ['ts-build-app', 'ts-build-lib']);
