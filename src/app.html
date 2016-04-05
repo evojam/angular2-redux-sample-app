@@ -7,6 +7,9 @@
             {{ user.name.firstName }}
             {{ user.name.lastName }}
             {{ user.age }}
+            <button type="button" (mousedown)="editUser(user)">
+                EDIT
+            </button>
         </li>
     </ul>
     <button type="button" (click)="prepareNewUser()" *ngIf="!newUser">
@@ -14,7 +17,7 @@
     </button>
     <template [ngIf]="newUser">
         <pre>newUser: {{ newUser | json }}</pre>
-        <form (submit)="addNewUser(newUser)">
+        <form (submit)="addOrUpdateUser(newUser)">
             <label>First Name</label>
             <input type="text" [(ngModel)]="newUser.name.firstName" />
             <hr/>
@@ -24,7 +27,11 @@
             <label>Age</label>
             <input type="number" [(ngModel)]="newUser.age" />
             <hr/>
-            <button type="submit">Add</button>
+            <div [ngSwitch]="newUser.isNew()">
+                <button type="submit" *ngSwitchWhen="true">Add</button>
+                <button type="submit" *ngSwitchWhen="false">Update</button>
+            </div>
+
         </form>
     </template>
 </main>

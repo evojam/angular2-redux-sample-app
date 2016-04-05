@@ -26,9 +26,27 @@ export class App implements OnInit {
     prepareNewUser() { 
         this.newUser = new User();
     }
+
+    editUser(user: User) {
+        this.newUser = user.clone();
+    }
     
-    addNewUser(user: User) {
-        this.users = this.users.concat(user);
+    addOrUpdateUser(user: User) {
         this.newUser = null;
+        if (user.isNew()) {
+            this.userDao.createUser(user)
+                .subscribe(savedUser => {
+                    this.users = this.users.concat(user);
+                });
+        } else {
+            this.userDao.updateUser(user)
+                .subscribe(savedUser => {
+                    this.users = this.users
+                        .map(u => u.id === user.id ? user : u);
+                });
+        }
+
+
+
     }
 }
