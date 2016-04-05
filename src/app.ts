@@ -4,6 +4,7 @@ import 'rxjs/Rx';
 
 import { User, IUser } from './services/user';
 import { UserDao } from './services/user-dao';
+import { NgForm } from "angular2/common";
 
 @Component({
     selector: 'my-app',
@@ -16,6 +17,10 @@ export class App implements OnInit {
     newUser: User = null;
     
     users = [];
+
+    log(a: any): void {
+        console.log(a);
+    }
 
     ngOnInit(): void {
         this.userDao.getUsers().subscribe(users => {
@@ -31,7 +36,8 @@ export class App implements OnInit {
         this.newUser = user.clone();
     }
     
-    addOrUpdateUser(user: User) {
+    addOrUpdateUser(user: User, userForm: NgForm) {
+        console.log(userForm);
         this.newUser = null;
         if (user.isNew()) {
             this.userDao.createUser(user)
@@ -45,8 +51,6 @@ export class App implements OnInit {
                         .map(u => u.id === user.id ? user : u);
                 });
         }
-
-
-
+        
     }
 }

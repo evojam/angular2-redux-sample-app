@@ -17,20 +17,39 @@
     </button>
     <template [ngIf]="newUser">
         <pre>newUser: {{ newUser | json }}</pre>
-        <form (submit)="addOrUpdateUser(newUser)">
+        <form (submit)="addOrUpdateUser(newUser, userForm)" #userForm="ngForm" novalidate>
             <label>First Name</label>
-            <input type="text" [(ngModel)]="newUser.name.firstName" />
+            <input type="text" required [(ngModel)]="newUser.name.firstName" ngControl="firstName" #fn="ngForm" />
             <hr/>
             <label>Last Name</label>
-            <input type="text" [(ngModel)]="newUser.name.lastName" />
+            <input type="text" required [(ngModel)]="newUser.name.lastName" ngControl="lastName" #ln="ngForm" />
             <hr/>
             <label>Age</label>
-            <input type="number" [(ngModel)]="newUser.age" />
+            <input type="number" required [(ngModel)]="newUser.age" ngControl="age" #a="ngForm" />
             <hr/>
             <div [ngSwitch]="newUser.isNew()">
-                <button type="submit" *ngSwitchWhen="true">Add</button>
-                <button type="submit" *ngSwitchWhen="false">Update</button>
+                <button
+                    type="submit"
+                    *ngSwitchWhen="true"
+                    [disabled]="!userForm.valid">
+                    Add
+                </button>
+                <button
+                    type="submit"
+                    *ngSwitchWhen="false"
+                    [disabled]="!userForm.valid">
+                    Update
+                </button>
             </div>
+            <p *ngIf="fn.errors" [style.color]="'red'">
+                First name is required
+            </p>
+            <p *ngIf="ln.errors" [style.color]="'red'">
+                Last name is required
+            </p>
+            <p *ngIf="a.errors" [style.color]="'red'">
+                Age is required
+            </p>
 
         </form>
     </template>
