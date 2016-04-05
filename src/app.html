@@ -9,4 +9,22 @@
             {{ user.age }}
         </li>
     </ul>
+    <button type="button" (click)="prepareNewUser()" *ngIf="!newUser">
+        Add new user
+    </button>
+    <template [ngIf]="newUser">
+        <pre>newUser: {{ newUser | json }}</pre>
+        <form (submit)="addNewUser(newUser)">
+            <label>First Name</label>
+            <input type="text" [(ngModel)]="newUser.name.firstName" />
+            <hr/>
+            <label>Last Name</label>
+            <input type="text" [(ngModel)]="newUser.name.lastName" />
+            <hr/>
+            <label>Age</label>
+            <input type="number" [(ngModel)]="newUser.age" />
+            <hr/>
+            <button type="submit">Add</button>
+        </form>
+    </template>
 </main>
