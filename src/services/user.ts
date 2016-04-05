@@ -3,7 +3,7 @@ interface IUserName {
     lastName: string;
 }
 
-interface IUser {
+export interface IUser {
     name: IUserName;
     age: number;
 }
@@ -20,5 +20,9 @@ export class User implements IUser {
         public age: number = null
     ) {
         this.name = { firstName, lastName };
+    }
+    
+    static fromUser(user: IUser) {
+        return new User(user.name.firstName, user.name.lastName, user.age);
     }
 }

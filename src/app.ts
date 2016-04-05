@@ -1,20 +1,27 @@
-import { Component } from 'angular2/core';
-import { User } from './services/user';
+import { Component, OnInit } from 'angular2/core';
+import { Http } from 'angular2/http';
+import 'rxjs/Rx';
 
+import { User, IUser } from './services/user';
+import { UserDao } from './services/user-dao';
 
 @Component({
     selector: 'my-app',
     templateUrl: '/src/app.html'
 })
-export class App {
+export class App implements OnInit {
+
+    constructor(private userDao: UserDao) {}
 
     newUser: User = null;
     
-    users = [
-        new User('Eryk', 'Thorsson', 233),
-        new User('Adam', 'Adamov', 53),
-        new User('Xena', 'Booby', 25)
-    ];
+    users = [];
+
+    ngOnInit(): void {
+        this.userDao.getUsers().subscribe(users => {
+            this.users = users;
+        });
+    }
 
     prepareNewUser() { 
         this.newUser = new User();

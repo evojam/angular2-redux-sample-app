@@ -1,5 +1,7 @@
-// import { provide } from 'angular2/core';
 import { bootstrap } from 'angular2/platform/browser';
-import { App } from './app';
+import { HTTP_PROVIDERS } from 'angular2/http';
 
-bootstrap(App, []);
+import { App } from './app';
+import { UserDao } from './services/user-dao';
+
+bootstrap(App, [HTTP_PROVIDERS, UserDao]);
